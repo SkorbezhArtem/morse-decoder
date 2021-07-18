@@ -40,18 +40,14 @@ const MORSE_TABLE = {
 function decode(expr) {
     let arr = expr.match(/.{1,10}/g);
     arr = arr.map(el => {
-      if (el === '**********') return ' ';
-        el = el.substring(el.indexOf('1'));
-        el = el.match(/.{1,2}/g);
-        el = el.map(s => {
-          return s === '10' ? '.' : '-';
-        });
-     return el.join('');
+      return el === '**********' ? ' ' :
+      el.substring(el.indexOf('1'))
+        .match(/.{1,2}/g)
+        .map(s => s === '10' ? '.' : '-')
+        .join('');
     });
-    arr = arr.map(x => {
-      return x === ' '  ? ' ' : MORSE_TABLE[x];
-    });
-    return arr.join('');
+    return arr.map(x => x === ' '  ? ' ' : MORSE_TABLE[x])
+      .join('');
 }
 
 module.exports = {
